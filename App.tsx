@@ -1,20 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+
+import React from "react";
+import { Login } from './src/screens/Login'
+import { Cadastrar } from './src/screens/Cadastrar'
+import { NativeBaseProvider, Center } from "native-base";
+import { StyleSheet, Image } from "react-native";
+
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NativeBaseProvider>
+      <Center
+      style={styles.img}>
+        <Image
+          source={require('./assets/logoBrickin.png')}
+        />
+      </Center>
+      <Cadastrar />
+      
+    </NativeBaseProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  img:{
+    position: 'relative',
+    margin: '9%'
+  }
+})
