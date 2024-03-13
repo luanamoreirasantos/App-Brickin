@@ -24,7 +24,7 @@ export function Login() {
         <Heading style={styles.title} size="xl" color="#E8770D" my={10} >
           Login
         </Heading>
-        <Input padding="2" placeholder="Email:" mb={9} />
+        <Input padding="2" placeholder="Email:" mb={4} />
         <Input padding="2" placeholder="Senha:" secureTextEntry />
         <Text style={styles.title} color="#E8770D" mb={20} mr={210}>Esqueceu a senha?</Text>
         
