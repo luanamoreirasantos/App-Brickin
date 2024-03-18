@@ -1,23 +1,14 @@
-import { VStack, Heading, Center, Text } from "native-base";
-import { useForm, Controller } from "react-hook-form";
-import { useFonts, Urbanist_700Bold, Urbanist_900Black } from "@expo-google-fonts/urbanist";
+import React, { useState } from 'react';
+import { VStack, Heading, Center, Text } from 'native-base';
+import axios from 'axios'; // fazer solicitações HTTP
 
 import { Input } from "../components/input";
 import { Button } from "../components/button";
-
+import { useFonts, Urbanist_700Bold, Urbanist_900Black } from "@expo-google-fonts/urbanist";
+import { styles } from './styles';
 
 
 export function Cadastrar() {
-
-    const [fontLoaded] = useFonts({
-        Urbanist_700Bold,
-        Urbanist_900Black,
-    });
-
-    if (!fontLoaded) {
-        return null;
-    }
-
 
 
 
@@ -46,6 +37,14 @@ export function Cadastrar() {
         }
     };
 
+    const [fontLoaded] = useFonts({
+        Urbanist_700Bold,
+        Urbanist_900Black,
+    });
+    if (!fontLoaded) {
+        return null;
+    }
+
     return (
         <VStack bgColor="white" flex={1} padding={10}>
             <Center>
@@ -71,10 +70,21 @@ export function Cadastrar() {
                     secureTextEntry={true}
                     onChangeText={(value) => handleChange('password', value)}
                 />
-                <Button color="white" mb={4} onPress={handleSubmit}>
-                    Cadastrar
-                </Button>
+
+                <Input
+                    padding="2"
+                    placeholder="Confirme a senha:"
+                    mb="4"
+                    secureTextEntry={true}
+                    onChangeText={(value) => handleChange('password', value)}
+                />
+
+                <Button color="white" mb={4} title="Cadastrar" onPress={handleSubmit} />
+                <Text style={styles.title} marginX="20">
+                    Já tem uma conta? <Text color="#E8770D">login</Text>
+                </Text>
             </Center>
         </VStack>
+
     );
 }
