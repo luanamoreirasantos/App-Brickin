@@ -14,7 +14,7 @@ const db = new sqlite3.Database(':memory:'); // Isso cria um banco de dados SQLi
 
 // Criação da tabela de clientes
 db.serialize(() => {
-    db.run("CREATE TABLE IF NOT EXISTS clients (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, password TEXT)");
+    db.run("CREATE TABLE IF NOT EXISTS clients (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT UNIQUE, password TEXT)");
 });
 
 // Rota para criar um novo cliente
@@ -24,6 +24,11 @@ app.post('/clients', (req, res) => {
     // Verifique se todos os campos foram fornecidos
     if (!name || !email || !password) {
         return res.status(400).send('Todos os campos são obrigatórios');
+    }
+
+    // Verifique se o email é válido
+    if (!isValidEmail(email)) {
+        return res.status(400).send('Email inválido');
     }
 
     // Verifique se o cliente já existe no banco de dados
@@ -44,6 +49,12 @@ app.post('/clients', (req, res) => {
         });
     });
 });
+
+// Função para validar o formato do email
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
 
 // Inicia o servidor na porta especificada
 app.listen(port, () => {
